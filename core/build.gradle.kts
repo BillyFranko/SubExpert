@@ -2,10 +2,10 @@ import org.gradle.internal.impldep.bsh.commands.dir
 
 plugins {
     id("com.android.library")
-    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.android") version "1.9.0"
     id("kotlin-kapt")
     id ("kotlin-parcelize")
-    id("com.google.dagger.hilt.android") version "2.44" apply false
+    id("com.google.dagger.hilt.android")
 }
 apply(from = "../shared_dependencies.gradle")
 
@@ -46,7 +46,6 @@ android {
 
 dependencies {
 
-    implementation (project(":core"))
     implementation(fileTree("libs") {
         include("*.jar")
     })
@@ -58,8 +57,8 @@ dependencies {
     implementation ("com.squareup.okhttp3:logging-interceptor:4.9.0")
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-core:1.5.2")
     implementation ("org.jetbrains.kotlinx:kotlinx-coroutines-android:1.5.2")
-    implementation ("androidx.room:room-ktx:2.5.2")
-    implementation ("androidx.room:room-runtime:2.5.2")
-    kapt("androidx.room:room-compiler:2.5.2")
+    implementation ("androidx.room:room-ktx:2.6.1")
+    implementation ("androidx.room:room-runtime:2.6.1")
+    kapt("androidx.room:room-compiler:2.6.1")
 
 }

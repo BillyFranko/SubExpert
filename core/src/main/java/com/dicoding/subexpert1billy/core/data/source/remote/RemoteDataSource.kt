@@ -5,8 +5,10 @@ import com.dicoding.subexpert1billy.core.data.source.remote.network.ApiResponse
 import com.dicoding.subexpert1billy.core.data.source.remote.network.ApiService
 import com.dicoding.subexpert1billy.core.data.source.remote.response.FoodsResponse
 import com.dicoding.subexpert1billy.core.data.source.remote.response.MealsItem
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
+import kotlinx.coroutines.flow.flowOn
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -24,9 +26,9 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
                     emit(ApiResponse.Empty)
                 }
             }catch (e : Exception){
-                emit(ApiResponse.Error(e.toString()))
                 Log.e("Remote Data Source", e.toString())
+                emit(ApiResponse.Error(e.toString()))
             }
-        }
+        }.flowOn(Dispatchers.IO)
     }
 }

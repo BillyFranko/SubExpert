@@ -37,7 +37,7 @@ class HomeFragment : Fragment() {
             val foodAdapter = FoodAdapter()
             foodAdapter.onItemClick = {
                 val intent = Intent(activity, FoodDetail::class.java)
-                intent.putExtra("Data_Detail", it)
+                intent.putExtra(FoodDetail.Data_Food, it)
                 startActivity(intent)
             }
 

@@ -31,7 +31,7 @@ class FoodRepository @Inject constructor(
         }
 
             override fun shouldFetch(data: List<Foods>?): Boolean =
-                true
+                data.isNullOrEmpty()
 
             override suspend fun createCall(): Flow<ApiResponse<List<MealsItem?>?>> =
                 remoteDataSource.getAllFoods()

@@ -2,6 +2,7 @@ package com.dicoding.subexpert1billy.detail
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.widget.Toast
 import androidx.activity.viewModels
 import androidx.core.content.ContextCompat
 import com.bumptech.glide.Glide
@@ -20,8 +21,12 @@ class FoodDetail : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         binding = ActivityFoodDetailBinding.inflate(layoutInflater)
         setContentView(binding.root)
-        val detailFood = intent.getParcelableExtra<Foods>("Data_Detail")
+
+        val detailFood = intent.getParcelableExtra<Foods>(Data_Food)
         showDetailFood(detailFood)
+
+        val favStatus  = detailFood?.isFav
+        Toast.makeText(this, "$favStatus", Toast.LENGTH_SHORT).show()
     }
 
     private fun showDetailFood(detailFood: Foods?) {
@@ -34,11 +39,12 @@ class FoodDetail : AppCompatActivity() {
             binding.tvCategory.text = detailFood.strCategory
             binding.tvInstructions.text = detailFood.strInstructions
 
-            var favorite = detailFood.isFav
-            setStatus(favorite)
+            setStatus(detailFood.isFav)
             binding.btnFav.setOnClickListener {
-                foodDetailViewModel.setFavoriteFood(detailFood, !favorite)
-                setStatus(!favorite)
+                var favorite = detailFood.isFav
+                favorite = !favorite
+                foodDetailViewModel.setFavoriteFood(detailFood, favorite)
+                setStatus(favorite)
             }
         }
     }
@@ -49,5 +55,9 @@ class FoodDetail : AppCompatActivity() {
         }else{
             binding.btnFav.setImageDrawable(ContextCompat.getDrawable(this, R.drawable.favorite))
         }
+    }
+
+    companion object{
+        const val Data_Food = "Food_Data"
     }
 }

@@ -12,7 +12,7 @@ object DataMapper {
         val foodList = ArrayList<FoodEntity>()
         input?.map {
             val food = FoodEntity(
-                idMeal = it?.idMeal,
+                idMeal = it?.idMeal.toString(),
                 strImageSource = it?.strImageSource,
                 strCategory = it?.strCategory,
                 strArea = it?.strArea,
@@ -65,12 +65,12 @@ object DataMapper {
                 strYoutube = it.strYoutube,
                 strMeal = it.strMeal,
                 dateModified = it.dateModified.toString(),
-                isFav = false
+                isFav = it.isFav
             )
         }
 
     fun mapDomainToEntity(input: Foods) = FoodEntity(
-        idMeal = input.idMeal,
+        idMeal = input.idMeal.toString(),
         strImageSource = input.strImageSource.toString(),
         strCategory = input.strCategory,
         strArea = input.strArea,

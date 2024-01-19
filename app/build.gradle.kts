@@ -2,9 +2,9 @@ import org.gradle.internal.impldep.bsh.commands.dir
 
 plugins {
     id("com.android.application")
-    id("org.jetbrains.kotlin.android")
+    id("org.jetbrains.kotlin.android") version "1.9.0"
     id("kotlin-kapt")
-    id("com.google.dagger.hilt.android") version "2.44" apply false
+    id("com.google.dagger.hilt.android")
 }
 apply(from = "../shared_dependencies.gradle")
 
@@ -44,7 +44,7 @@ android {
     kotlinOptions {
         jvmTarget = "1.8"
     }
-    dynamicFeatures += setOf(":favorite")
+//    dynamicFeatures += setOf(":favorite")
 }
 
 dependencies {

@@ -11,7 +11,7 @@ data class FoodsResponse(
 data class MealsItem(
 
 	@field:SerializedName("strImageSource")
-	val strImageSource: Any? = null,
+	val strImageSource: String? = null,
 
 	@field:SerializedName("strCategory")
 	val strCategory: String? = null,
@@ -20,13 +20,13 @@ data class MealsItem(
 	val strArea: String? = null,
 
 	@field:SerializedName("strCreativeCommonsConfirmed")
-	val strCreativeCommonsConfirmed: Any? = null,
+	val strCreativeCommonsConfirmed: String? = null,
 
 	@field:SerializedName("strTags")
 	val strTags: String? = null,
 
 	@field:SerializedName("idMeal")
-	val idMeal: String? = null,
+	val idMeal: String,
 
 	@field:SerializedName("strInstructions")
 	val strInstructions: String? = null,
@@ -41,5 +41,5 @@ data class MealsItem(
 	val strMeal: String? = null,
 
 	@field:SerializedName("dateModified")
-	val dateModified: Any? = null,
+	val dateModified:String? = null,
 )

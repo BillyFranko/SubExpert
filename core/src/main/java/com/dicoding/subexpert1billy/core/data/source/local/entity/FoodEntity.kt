@@ -10,10 +10,10 @@ import com.google.gson.annotations.SerializedName
 data class FoodEntity (
     @PrimaryKey
     @ColumnInfo(name = "idMeal")
-    val idMeal: String? = null,
+    val idMeal: String,
 
     @ColumnInfo(name = "strImageSource")
-    val strImageSource: Any? = null,
+    val strImageSource: String? = null,
 
     @ColumnInfo(name = "strCategory")
     val strCategory: String? = null,
@@ -22,7 +22,7 @@ data class FoodEntity (
     val strArea: String? = null,
 
     @ColumnInfo(name = "strCreativeCommonsConfirmed")
-    val strCreativeCommonsConfirmed: Any? = null,
+    val strCreativeCommonsConfirmed: String? = null,
 
     @ColumnInfo(name = "strTags")
     val strTags: String? = null,
@@ -40,7 +40,7 @@ data class FoodEntity (
     val strMeal: String? = null,
 
     @ColumnInfo(name = "dateModified")
-    val dateModified: Any? = null,
+    val dateModified: String? = null,
 
     @ColumnInfo(name = "isFavorite")
     var isFav: Boolean = false,
