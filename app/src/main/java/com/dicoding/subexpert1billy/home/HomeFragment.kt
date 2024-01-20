@@ -7,8 +7,10 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dicoding.subexpert1billy.R
 import com.dicoding.subexpert1billy.core.data.Resource
 import com.dicoding.subexpert1billy.core.ui.FoodAdapter
 import com.dicoding.subexpert1billy.databinding.FragmentHomeBinding
@@ -22,16 +24,43 @@ class HomeFragment : Fragment() {
     private var _binding : FragmentHomeBinding? = null
     private val binding get() = _binding!!
 
+
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
-    ): View? {
+    ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
         return binding.root
+
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+
+        (requireActivity() as AppCompatActivity).supportActionBar?.hide()
+
+        with(binding){
+            searchView.setupWithSearchBar(searchBar)
+            searchView
+                .editText
+                .setOnEditorActionListener{textView, actionId, event ->
+                    searchBar.setText(searchView.text)
+                    searchView.hide()
+                    false
+                }
+        }
+
+        binding.searchBar.inflateMenu(R.menu.fav_menu)
+        binding.searchBar.setOnMenuItemClickListener{menuItem ->
+            when(menuItem.itemId){
+//                R.id.favbar ->{
+//                    val favorite = Intent(requireContext(), )
+//                    startActivity(favorite)
+//                    true
+//                }
+                else -> false
+            }
+        }
 
         if(activity!=null) {
             val foodAdapter = FoodAdapter()

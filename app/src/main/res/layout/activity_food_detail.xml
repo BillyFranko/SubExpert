@@ -83,7 +83,7 @@
 
         <ImageButton
             android:id="@+id/btn_Fav"
-            android:layout_width="wrap_content"
+            android:layout_width="40dp"
             android:layout_height="wrap_content"
             app:layout_constraintEnd_toEndOf="@id/iv_Thumbnail"
             app:layout_constraintBottom_toBottomOf="@id/iv_Thumbnail"
