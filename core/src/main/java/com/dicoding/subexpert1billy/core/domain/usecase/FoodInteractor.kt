@@ -1,6 +1,5 @@
 package com.dicoding.subexpert1billy.core.domain.usecase
 
-import com.dicoding.subexpert1billy.core.data.FoodRepository
 import com.dicoding.subexpert1billy.core.data.Resource
 import com.dicoding.subexpert1billy.core.domain.model.Foods
 import com.dicoding.subexpert1billy.core.domain.repository.IFoodsRepository
@@ -13,7 +12,8 @@ class FoodInteractor @Inject constructor(private val foodRepository: IFoodsRepos
 
     override fun getFavoriteFoods(): Flow<List<Foods>> = foodRepository.getFavouriteFoods()
 
-
     override fun setFavoriteFood(food: Foods, state: Boolean) = foodRepository.setFavouriteFoods(food, state)
+
+    override fun searchFood(query : String) : Flow<List<Foods>> = foodRepository.searchFood(query)
 
 }

@@ -3,7 +3,6 @@ package com.dicoding.subexpert1billy.core.data.source.remote
 import android.util.Log
 import com.dicoding.subexpert1billy.core.data.source.remote.network.ApiResponse
 import com.dicoding.subexpert1billy.core.data.source.remote.network.ApiService
-import com.dicoding.subexpert1billy.core.data.source.remote.response.FoodsResponse
 import com.dicoding.subexpert1billy.core.data.source.remote.response.MealsItem
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow

@@ -37,7 +37,7 @@ class FoodDetail : AppCompatActivity() {
             binding.tvFoodName.text = detailFood.strMeal
             binding.tvArea.text = detailFood.strArea
             binding.tvCategory.text = detailFood.strCategory
-            binding.tvInstructions.text = detailFood.strInstructions
+            binding.tvInstructions.text = "How to Cook : \n" + detailFood.strInstructions
 
             setStatus(detailFood.isFav)
             binding.btnFav.setOnClickListener {

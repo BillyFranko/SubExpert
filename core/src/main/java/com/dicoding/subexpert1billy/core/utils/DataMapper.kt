@@ -1,9 +1,6 @@
 package com.dicoding.subexpert1billy.core.utils
 
-import androidx.room.ColumnInfo
-import androidx.room.PrimaryKey
 import com.dicoding.subexpert1billy.core.data.source.local.entity.FoodEntity
-import com.dicoding.subexpert1billy.core.data.source.remote.response.FoodsResponse
 import com.dicoding.subexpert1billy.core.data.source.remote.response.MealsItem
 import com.dicoding.subexpert1billy.core.domain.model.Foods
 

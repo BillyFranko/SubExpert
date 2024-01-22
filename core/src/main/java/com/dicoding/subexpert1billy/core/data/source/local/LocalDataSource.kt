@@ -15,6 +15,8 @@ class LocalDataSource @Inject constructor(private val foodDao: FoodDao){
 
     suspend fun insertFood(food : List<FoodEntity>) = foodDao.insertFood(food)
 
+    fun searchFood(query : String) : Flow<List<FoodEntity>> = foodDao.searchFood(query)
+
     fun updateFavoriteFood(food : FoodEntity, newState : Boolean) {
         food.isFav = newState
         foodDao.updateFavoriteFood(food)

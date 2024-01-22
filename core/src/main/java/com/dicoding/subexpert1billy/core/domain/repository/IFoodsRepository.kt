@@ -11,4 +11,6 @@ interface IFoodsRepository {
     fun getFavouriteFoods() : Flow<List<Foods>>
 
     fun setFavouriteFoods(foods : Foods, state : Boolean)
+
+    fun searchFood(query : String) : Flow<List<Foods>>
 }

@@ -1,10 +1,8 @@
 package com.dicoding.subexpert1billy.core.data
 
 import com.dicoding.subexpert1billy.core.data.source.local.LocalDataSource
-import com.dicoding.subexpert1billy.core.data.source.local.entity.FoodEntity
 import com.dicoding.subexpert1billy.core.data.source.remote.RemoteDataSource
 import com.dicoding.subexpert1billy.core.data.source.remote.network.ApiResponse
-import com.dicoding.subexpert1billy.core.data.source.remote.response.FoodsResponse
 import com.dicoding.subexpert1billy.core.data.source.remote.response.MealsItem
 import com.dicoding.subexpert1billy.core.domain.model.Foods
 import com.dicoding.subexpert1billy.core.domain.repository.IFoodsRepository
@@ -41,6 +39,12 @@ class FoodRepository @Inject constructor(
                 localDataSource.insertFood(foodList)
             }
     }.asFlow()
+
+    override fun searchFood(query : String): Flow<List<Foods>> =
+        localDataSource.searchFood(query).map {
+            DataMapper.mapEntitiesToDomain(it)
+        }
+
 
     override fun getFavouriteFoods(): Flow<List<Foods>> {
         return localDataSource.getAllFavorite().map {

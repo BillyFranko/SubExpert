@@ -2,7 +2,6 @@ package com.dicoding.subexpert1billy.core.domain.model
 
 import android.os.Parcelable
 import kotlinx.parcelize.Parcelize
-import java.util.Date
 
 @Parcelize
 data class Foods (

@@ -1,10 +1,8 @@
 package com.dicoding.subexpert1billy.core.data.source.local.entity
 
-import androidx.annotation.NonNull
 import androidx.room.ColumnInfo
 import androidx.room.Entity
 import androidx.room.PrimaryKey
-import com.google.gson.annotations.SerializedName
 
 @Entity(tableName = "foods")
 data class FoodEntity (

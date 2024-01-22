@@ -17,6 +17,9 @@ interface FoodDao {
     @Query("SELECT * FROM foods where isFavorite = 1")
     fun getAllFavorite(): Flow<List<FoodEntity>>
 
+    @Query("SELECT * FROM foods where strMeal LIKE '%' || :query || '%'")
+    fun searchFood(query : String): Flow<List<FoodEntity>>
+
     @Insert(onConflict = OnConflictStrategy.REPLACE)
     suspend fun insertFood(food : List<FoodEntity>)
 
