@@ -10,6 +10,7 @@ import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
 import androidx.fragment.app.viewModels
 import androidx.recyclerview.widget.LinearLayoutManager
+import com.dicoding.subexpert1billy.R
 import com.dicoding.subexpert1billy.core.data.Resource
 import com.dicoding.subexpert1billy.core.ui.FoodAdapter
 import com.dicoding.subexpert1billy.databinding.FragmentHomeBinding
@@ -21,7 +22,7 @@ class HomeFragment : Fragment() {
 
     private val homeViewModel : HomeViewModel by viewModels()
     private var _binding : FragmentHomeBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding
 
 
     override fun onCreateView(
@@ -29,7 +30,7 @@ class HomeFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentHomeBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root ?: inflater.inflate(R.layout.fragment_home, container, false)
 
     }
 
@@ -37,17 +38,6 @@ class HomeFragment : Fragment() {
         super.onViewCreated(view, savedInstanceState)
 
         (requireActivity() as AppCompatActivity).supportActionBar?.hide()
-
-        with(binding){
-            searchView.setupWithSearchBar(searchBar)
-            searchView
-                .editText
-                .setOnEditorActionListener{textView, actionId, event ->
-                    searchBar.setText(searchView.text)
-                    searchView.hide()
-                    false
-                }
-        }
 
         if(activity!=null) {
             val foodAdapter = FoodAdapter()
@@ -61,9 +51,9 @@ class HomeFragment : Fragment() {
             homeViewModel.food.observe(viewLifecycleOwner) { food ->
                 if (food != null) {
                     when (food) {
-                        is Resource.Loading -> binding.progressBar.visibility = View.VISIBLE
+                        is Resource.Loading -> binding?.progressBar?.visibility = View.VISIBLE
                         is Resource.Error -> {
-                            binding.progressBar.visibility = View.GONE
+                            binding?.progressBar?.visibility = View.GONE
                             Toast.makeText(
                                 requireContext(),
                                 "Something gone wrong. Please try again",
@@ -73,20 +63,32 @@ class HomeFragment : Fragment() {
                         }
 
                         is Resource.Success -> {
-                            binding.progressBar.visibility = View.GONE
+                            binding?.progressBar?.visibility = View.GONE
                             foodAdapter.setData(food.data)
                         }
                     }
                 }
             }
 
-
-            binding.searchBar.hint = "Search for foods"
             with(binding){
-                searchView.setupWithSearchBar(searchBar)
-                searchView
-                    .editText
-                    .setOnEditorActionListener { textView, actionId, event ->
+                this?.searchView?.setupWithSearchBar(searchBar)
+                this?.searchView
+                    ?.editText
+                    ?.setOnEditorActionListener{textView, actionId, event ->
+                        searchBar.setText(searchView.text)
+                        searchView.hide()
+                        homeViewModel.setSearchQuery(searchBar.text.toString())
+                        false
+                    }
+            }
+
+
+            binding?.searchBar?.hint = "Search for foods"
+            with(binding){
+                this?.searchView?.setupWithSearchBar(searchBar)
+                this?.searchView
+                    ?.editText
+                    ?.setOnEditorActionListener{textView, actionId, event ->
                         searchBar.setText(searchView.text)
                         searchView.hide()
                         homeViewModel.setSearchQuery(searchBar.text.toString())
@@ -98,10 +100,12 @@ class HomeFragment : Fragment() {
                 foodAdapter.setData(it)
             }
 
-            with(binding.rvFood){
-                layoutManager = LinearLayoutManager(context)
-                setHasFixedSize(true)
-                adapter = foodAdapter
+            binding?.let {
+                with(it.rvFood){
+                    layoutManager = LinearLayoutManager(context)
+                    setHasFixedSize(true)
+                    adapter = foodAdapter
+                }
             }
 
         }

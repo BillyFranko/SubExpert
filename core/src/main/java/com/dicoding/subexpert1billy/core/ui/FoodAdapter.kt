@@ -15,7 +15,7 @@ class FoodAdapter : RecyclerView.Adapter<FoodAdapter.ListViewHolder>() {
     private var listData = ArrayList<Foods>()
     var onItemClick : ((Foods) -> Unit)? = null
 
-    @SuppressLint("NotifyDataSetChanged")
+
     fun setData(newListData: List<Foods>?){
         if (newListData == null) return
         listData.clear()

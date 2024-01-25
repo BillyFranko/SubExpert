@@ -4,6 +4,7 @@ import android.util.Log
 import com.dicoding.subexpert1billy.core.data.source.remote.network.ApiResponse
 import com.dicoding.subexpert1billy.core.data.source.remote.network.ApiService
 import com.dicoding.subexpert1billy.core.data.source.remote.response.MealsItem
+import kotlinx.coroutines.CoroutineDispatcher
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.flow
@@ -14,7 +15,9 @@ import javax.inject.Singleton
 @Singleton
 class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
 
-    suspend fun getAllFoods(): Flow<ApiResponse<List<MealsItem?>?>> {
+    suspend fun getAllFoods(
+        ioDispatcher: CoroutineDispatcher = Dispatchers.IO
+    ): Flow<ApiResponse<List<MealsItem?>?>> {
         return flow {
             try {
                 val response = apiService.getList()
@@ -28,6 +31,6 @@ class RemoteDataSource @Inject constructor(private val apiService: ApiService) {
                 Log.e("Remote Data Source", e.toString())
                 emit(ApiResponse.Error(e.toString()))
             }
-        }.flowOn(Dispatchers.IO)
+        }.flowOn(ioDispatcher)
     }
 }

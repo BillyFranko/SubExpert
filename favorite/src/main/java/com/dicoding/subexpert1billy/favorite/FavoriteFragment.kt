@@ -14,6 +14,7 @@ import com.dicoding.subexpert1billy.detail.FoodDetail
 import com.dicoding.subexpert1billy.di.FavoriteModuleDependencies
 import com.dicoding.subexpert1billy.favorite.databinding.FragmentFavoriteBinding
 import dagger.hilt.android.EntryPointAccessors
+import java.util.zip.Inflater
 import javax.inject.Inject
 
 
@@ -26,7 +27,7 @@ class FavoriteFragment : Fragment() {
         factory
     }
     private var _binding: FragmentFavoriteBinding? = null
-    private val binding get() = _binding!!
+    private val binding get() = _binding
 
     override fun onCreate(savedInstanceState: Bundle?) {
         DaggerFavoriteComponent.builder()
@@ -47,7 +48,7 @@ class FavoriteFragment : Fragment() {
         savedInstanceState: Bundle?
     ): View {
         _binding = FragmentFavoriteBinding.inflate(inflater, container, false)
-        return binding.root
+        return binding?.root ?: inflater.inflate(R.layout.fragment_favorite, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -62,6 +63,7 @@ class FavoriteFragment : Fragment() {
             }
 
             favoriteViewModel.favoriteFood.observe(viewLifecycleOwner) { food ->
+                foodAdapter.setData(food)
                 if (food.isEmpty()) {
                     Toast.makeText(
                         requireContext(),
@@ -69,15 +71,14 @@ class FavoriteFragment : Fragment() {
                         Toast.LENGTH_SHORT
                     )
                         .show()
-                } else {
-                    foodAdapter.setData(food)
-                    binding.progressBar.visibility = View.GONE
                 }
 
-                with(binding.rvFavorite) {
-                    layoutManager = LinearLayoutManager(context)
-                    setHasFixedSize(true)
-                    adapter = foodAdapter
+                binding?.let {
+                    with(it.rvFavorite) {
+                        layoutManager = LinearLayoutManager(context)
+                        setHasFixedSize(true)
+                        adapter = foodAdapter
+                    }
                 }
 
             }

@@ -28,6 +28,7 @@
             app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintEnd_toEndOf="parent"
             android:layout_marginTop="54dp"
+            android:contentDescription="foto_makanan"
             app:layout_constraintTop_toTopOf="parent"
             android:src="@mipmap/ic_launcher"/>
 

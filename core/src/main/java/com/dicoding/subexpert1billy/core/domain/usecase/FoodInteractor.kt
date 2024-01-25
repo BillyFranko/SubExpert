@@ -9,10 +9,9 @@ import javax.inject.Inject
 class FoodInteractor @Inject constructor(private val foodRepository: IFoodsRepository) : FoodUseCase{
     override fun getAllFood(): Flow<Resource<List<Foods>>> = foodRepository.getAllFoods()
 
-
     override fun getFavoriteFoods(): Flow<List<Foods>> = foodRepository.getFavouriteFoods()
 
-    override fun setFavoriteFood(food: Foods, state: Boolean) = foodRepository.setFavouriteFoods(food, state)
+    override suspend fun setFavoriteFood(food: Foods, state: Boolean) = foodRepository.setFavouriteFoods(food, state)
 
     override fun searchFood(query : String) : Flow<List<Foods>> = foodRepository.searchFood(query)
 

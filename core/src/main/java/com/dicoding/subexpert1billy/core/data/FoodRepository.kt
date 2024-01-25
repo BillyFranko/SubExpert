@@ -8,8 +8,10 @@ import com.dicoding.subexpert1billy.core.domain.model.Foods
 import com.dicoding.subexpert1billy.core.domain.repository.IFoodsRepository
 import com.dicoding.subexpert1billy.core.utils.AppExecutors
 import com.dicoding.subexpert1billy.core.utils.DataMapper
+import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
 import kotlinx.coroutines.flow.map
+import kotlinx.coroutines.withContext
 import javax.inject.Inject
 import javax.inject.Singleton
 
@@ -52,9 +54,11 @@ class FoodRepository @Inject constructor(
         }
     }
 
-    override fun setFavouriteFoods(foods: Foods, state: Boolean) {
+    override suspend fun setFavouriteFoods(foods: Foods, state: Boolean) {
         val foodEntity = DataMapper.mapDomainToEntity(foods)
-        appExecutors.diskIO().execute{localDataSource.updateFavoriteFood(foodEntity, state)}
+        withContext(Dispatchers.IO){
+            localDataSource.updateFavoriteFood(foodEntity, state)
+        }
     }
 
 }

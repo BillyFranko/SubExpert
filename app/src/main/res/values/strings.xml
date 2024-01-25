@@ -7,4 +7,7 @@
     <string name="area">Area</string>
     <string name="category">Category</string>
     <string name="instructions">Instructions</string>
+    <string name="home">Home</string>
+    <string name="favorite">Favorite</string>
+    <string name="how_to_cook">How to Cook : %s&#10;</string>
 </resources>
