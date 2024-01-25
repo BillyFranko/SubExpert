@@ -59,4 +59,7 @@ dependencies {
     implementation ("androidx.room:room-runtime:2.6.1")
     kapt("androidx.room:room-compiler:2.6.1")
 
+    implementation ("net.zetetic:android-database-sqlcipher:4.4.0")
+    implementation ("androidx.sqlite:sqlite-ktx:2.1.0")
+
 }
