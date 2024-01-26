@@ -20,8 +20,8 @@ class DatabaseModule {
     @Singleton
     @Provides
     fun provideDatabase(@ApplicationContext context: Context) : FoodDatabase {
-        val passPhrase : ByteArray = SQLiteDatabase.getBytes("food".toCharArray())
-        val factory = SupportFactory(passPhrase)
+        val passphrase : ByteArray = SQLiteDatabase.getBytes("food".toCharArray())
+        val factory = SupportFactory(passphrase)
         return Room.databaseBuilder(
             context,
             FoodDatabase::class.java, "Food.db"

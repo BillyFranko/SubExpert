@@ -1,13 +1,16 @@
 package com.dicoding.subexpert1billy.core.data.source.remote.response
 
+import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
+@Keep
 data class FoodsResponse(
 
 	@field:SerializedName("meals")
 	val meals: List<MealsItem?>? = null
 )
 
+@Keep
 data class MealsItem(
 
 	@field:SerializedName("strImageSource")
@@ -26,7 +29,7 @@ data class MealsItem(
 	val strTags: String? = null,
 
 	@field:SerializedName("idMeal")
-	val idMeal: String,
+	val idMeal: String = "",
 
 	@field:SerializedName("strInstructions")
 	val strInstructions: String? = null,
