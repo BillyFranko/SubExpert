@@ -1,16 +1,13 @@
 package com.dicoding.subexpert1billy.core.data.source.remote.response
 
-import androidx.annotation.Keep
 import com.google.gson.annotations.SerializedName
 
-@Keep
 data class FoodsResponse(
 
 	@field:SerializedName("meals")
 	val meals: List<MealsItem?>? = null
 )
 
-@Keep
 data class MealsItem(
 
 	@field:SerializedName("strImageSource")

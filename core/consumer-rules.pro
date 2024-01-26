@@ -228,4 +228,6 @@
 -dontwarn org.openjsse.javax.net.ssl.SSLSocket
 -dontwarn org.openjsse.net.ssl.OpenJSSE
 
--dontwarn java.lang.invoke.StringConcatFactory
+-keepclassmembers class com.dicoding.subexpert1billy.core.data.source.remote.response.** {
+    public <init>();
+}
