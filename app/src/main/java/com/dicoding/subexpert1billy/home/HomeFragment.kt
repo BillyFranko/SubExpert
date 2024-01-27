@@ -2,9 +2,11 @@ package com.dicoding.subexpert1billy.home
 
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
+import android.view.inputmethod.EditorInfo
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.fragment.app.Fragment
@@ -20,9 +22,10 @@ import dagger.hilt.android.AndroidEntryPoint
 @AndroidEntryPoint
 class HomeFragment : Fragment() {
 
-    private val homeViewModel : HomeViewModel by viewModels()
-    private var _binding : FragmentHomeBinding? = null
+    private val homeViewModel: HomeViewModel by viewModels()
+    private var _binding: FragmentHomeBinding? = null
     private val binding get() = _binding
+    private var isSearchResults: Boolean = false
 
 
     override fun onCreateView(
@@ -39,7 +42,7 @@ class HomeFragment : Fragment() {
 
         (requireActivity() as AppCompatActivity).supportActionBar?.hide()
 
-        if(activity!=null) {
+        if (activity != null) {
             val foodAdapter = FoodAdapter()
             foodAdapter.onItemClick = {
                 val intent = Intent(activity, FoodDetail::class.java)
@@ -49,7 +52,7 @@ class HomeFragment : Fragment() {
 
 
             homeViewModel.food.observe(viewLifecycleOwner) { food ->
-                if (food != null) {
+                if (food != null && !isSearchResults) {
                     when (food) {
                         is Resource.Loading -> binding?.progressBar?.visibility = View.VISIBLE
                         is Resource.Error -> {
@@ -65,43 +68,41 @@ class HomeFragment : Fragment() {
                         is Resource.Success -> {
                             binding?.progressBar?.visibility = View.GONE
                             foodAdapter.setData(food.data)
+                            Log.d("Food", "Updating adapter with Food results")
                         }
                     }
                 }
             }
 
-            with(binding){
-                this?.searchView?.setupWithSearchBar(searchBar)
-                this?.searchView
-                    ?.editText
-                    ?.setOnEditorActionListener{textView, actionId, event ->
-                        searchBar.setText(searchView.text)
-                        searchView.hide()
-                        homeViewModel.setSearchQuery(searchBar.text.toString())
-                        false
-                    }
-            }
-
 
             binding?.searchBar?.hint = "Search for foods"
-            with(binding){
+            with(binding) {
                 this?.searchView?.setupWithSearchBar(searchBar)
                 this?.searchView
                     ?.editText
-                    ?.setOnEditorActionListener{textView, actionId, event ->
-                        searchBar.setText(searchView.text)
-                        searchView.hide()
-                        homeViewModel.setSearchQuery(searchBar.text.toString())
+                    ?.setOnEditorActionListener { textView, actionId, event ->
+                        if (actionId == EditorInfo.IME_ACTION_SEARCH) {
+                            searchBar.setText(searchView.text)
+                            searchView.hide()
+                            isSearchResults = true
+                            homeViewModel.setSearchQuery(searchBar.text.toString())
+                            return@setOnEditorActionListener true
+                        }
                         false
                     }
             }
 
-            homeViewModel.search.observe(viewLifecycleOwner){
-                foodAdapter.setData(it)
+            homeViewModel.search.observe(viewLifecycleOwner) {
+                if (isSearchResults) {
+                    foodAdapter.setData(it)
+                    Log.d("SearchObserver", "Updating adapter with search results")
+                    isSearchResults = false
+                }
             }
 
+
             binding?.let {
-                with(it.rvFood){
+                with(it.rvFood) {
                     layoutManager = LinearLayoutManager(context)
                     setHasFixedSize(true)
                     adapter = foodAdapter
@@ -112,7 +113,7 @@ class HomeFragment : Fragment() {
 
     }
 
-    override fun onDestroyView(){
+    override fun onDestroyView() {
         super.onDestroyView()
         _binding = null
     }

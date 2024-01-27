@@ -14,7 +14,6 @@ import com.dicoding.subexpert1billy.detail.FoodDetail
 import com.dicoding.subexpert1billy.di.FavoriteModuleDependencies
 import com.dicoding.subexpert1billy.favorite.databinding.FragmentFavoriteBinding
 import dagger.hilt.android.EntryPointAccessors
-import java.util.zip.Inflater
 import javax.inject.Inject
 
 

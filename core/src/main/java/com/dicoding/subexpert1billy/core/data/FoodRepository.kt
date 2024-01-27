@@ -6,7 +6,6 @@ import com.dicoding.subexpert1billy.core.data.source.remote.network.ApiResponse
 import com.dicoding.subexpert1billy.core.data.source.remote.response.MealsItem
 import com.dicoding.subexpert1billy.core.domain.model.Foods
 import com.dicoding.subexpert1billy.core.domain.repository.IFoodsRepository
-import com.dicoding.subexpert1billy.core.utils.AppExecutors
 import com.dicoding.subexpert1billy.core.utils.DataMapper
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.flow.Flow
@@ -18,8 +17,7 @@ import javax.inject.Singleton
 @Singleton
 class FoodRepository @Inject constructor(
     private val remoteDataSource: RemoteDataSource,
-    private val localDataSource: LocalDataSource,
-    private val appExecutors : AppExecutors
+    private val localDataSource: LocalDataSource
 ) : IFoodsRepository{
 
     override fun getAllFoods(): Flow<Resource<List<Foods>>> =

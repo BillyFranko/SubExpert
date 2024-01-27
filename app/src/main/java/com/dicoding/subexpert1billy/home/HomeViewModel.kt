@@ -11,7 +11,6 @@ import javax.inject.Inject
 
 @HiltViewModel
 class HomeViewModel @Inject constructor (foodUseCase : FoodUseCase) : ViewModel() {
-    val food = foodUseCase.getAllFood().asLiveData()
     private val _searchQuery = MutableLiveData<String>()
     private val searchQuery : LiveData<String>
         get() = _searchQuery
@@ -22,6 +21,7 @@ class HomeViewModel @Inject constructor (foodUseCase : FoodUseCase) : ViewModel(
         }
     }
 
+    val food = foodUseCase.getAllFood().asLiveData()
     val search = searchQuery.switchMap { query->
         foodUseCase.searchFood(query).asLiveData()
     }
