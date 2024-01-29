@@ -1,5 +1,6 @@
 package com.dicoding.subexpert1billy.detail
 
+import android.annotation.SuppressLint
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.widget.Toast
@@ -29,6 +30,7 @@ class FoodDetail : AppCompatActivity() {
         Toast.makeText(this, "$favStatus", Toast.LENGTH_SHORT).show()
     }
 
+    @SuppressLint("SetTextI18n")
     private fun showDetailFood(detailFood: Foods?) {
         detailFood?.let {
             Glide.with(this)

@@ -1,7 +1,8 @@
 plugins {
     id("com.android.dynamic-feature")
     id("org.jetbrains.kotlin.android") version "1.9.0"
-    id("kotlin-kapt")
+//    id("kotlin-kapt")
+    id("com.google.devtools.ksp")
     id("com.google.dagger.hilt.android")
 }
 apply(from = "../shared_dependencies.gradle")
